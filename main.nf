@@ -16,13 +16,17 @@ process MEGAHIT {
     input:
     tuple val(sample_id), path(reads)
 
-    //output:
+    output:
+    path "${sample_id}.contigs.fa", emit: contigs
+    path "${sample_id}.contigs.fastg", emit: fastg
+
 
     script:
     """
-    echo 'ID = ${sample_id} forward = ${reads[0]} reverse = ${reads[1]}'
-    """
+    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}.contigs.fa -m 0.4 --presets meta-large 
 
+    megahit_toolkit contigs2fastg -i ${sample_id}.contigs.fa -o ${sample_id}.contigs.fastg
+    """
 }
 
 process MULTIQC{
