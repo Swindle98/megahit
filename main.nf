@@ -16,7 +16,10 @@ process MEGAHIT {
     input:
     tuple val(sample_id), path(reads)
 
-    //output:
+    output:
+    path "${sample_id}.contigs.fa", emit: contigs
+    path "${sample_id}.contigs.fastg", emit: fastg
+
 
     script:
     """
