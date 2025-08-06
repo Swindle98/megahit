@@ -20,9 +20,10 @@ process MEGAHIT {
 
     script:
     """
-    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}.contigs.fa
-    """
+    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}.contigs.fa -m 0.4 --presets meta-large 
 
+    megahit_toolkit contigs2fastg -i ${sample_id}.contigs.fa -o ${sample_id}.contigs.fastg
+    """
 }
 
 process MULTIQC{
