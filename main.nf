@@ -20,7 +20,7 @@ process MEGAHIT {
 
     script:
     """
-    echo 'ID = ${sample_id} forward = ${reads[0]} reverse = ${reads[1]}'
+    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}.contigs.fa
     """
 
 }
