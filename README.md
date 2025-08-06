@@ -97,5 +97,5 @@ General nextflow flags:
 - [ ] Automatic contig graph construction to `.svg` or `.png` figures. 
 - [ ] Add optional workflows for different MegaHit flags. 
 - [ ] Add different CPU options.
-
+- [ ] SLURM support configuration. 
 
