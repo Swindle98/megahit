@@ -7,8 +7,8 @@ workflow {
 
     samples = Channel.fromFilePairs("test_data/*unmapped_{1,2}.fastq.gz")
     samples.view()
-    mega = MEGAHIT(samples)
-    //multiqc = MULTIQC(mega)
+    MEGAHIT(samples)
+    MULTIQC()
 }
 
 process MEGAHIT {
@@ -30,15 +30,14 @@ process MEGAHIT {
 }
 
 process MULTIQC{
-    tag "running MultiQC on $mega"
-    input:
-        path mega
+    tag "running MultiQC"
+
     output:
-        path "multiqc_report.html"
+    path "NextMegaHit_report.HTML", emit: report
 
     script:
     """
-    multiqc $mega -o .
+    multiqc . --filename NextMegaHit_report.HTML -f
     """
 }
 
