@@ -37,7 +37,7 @@ process MULTIQC{
 
     script:
     """
-    multiqc . --filename NextMegaHit_report.HTML -f
+    multiqc ${projectDir} --filename NextMegaHit_report.HTML -f
     """
 }
 
