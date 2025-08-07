@@ -7,8 +7,8 @@ workflow {
 
     samples = Channel.fromFilePairs("test_data/*unmapped_{1,2}.fastq.gz")
     samples.view()
-    MEGAHIT(samples)
-    MULTIQC()
+    contigs = MEGAHIT(samples)
+    MULTIQC(contigs.contigs)
 }
 
 process MEGAHIT {
@@ -17,20 +17,23 @@ process MEGAHIT {
     tuple val(sample_id), path(reads)
 
     output:
-    path "${sample_id}.contigs.fa", emit: contigs
+    path "${sample_id}_contigs/", emit: contigs
     path "${sample_id}.contigs.fastg", emit: fastg
 
 
     script:
     """
-    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}.contigs.fa -m 0.4 --presets meta-large 
+    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}_contigs -m 0.4 --presets meta-large 
 
-    megahit_toolkit contigs2fastg -i ${sample_id}.contigs.fa -o ${sample_id}.contigs.fastg
+    megahit_toolkit contig2fastg -i ${sample_id}_contigs/final.contigs.fa -o ${sample_id}.contigs.fastg
     """
 }
 
 process MULTIQC{
     tag "running MultiQC"
+    
+    input:
+    path contigs
 
     output:
     path "NextMegaHit_report.HTML", emit: report
