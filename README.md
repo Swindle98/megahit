@@ -98,4 +98,5 @@ General nextflow flags:
 - [ ] Add optional workflows for different MegaHit flags. 
 - [ ] Add different CPU options.
 - [ ] SLURM support configuration. 
+- [ ] add some sample preprocessing, condensed view of number of samples etc. 
 
