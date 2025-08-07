@@ -15,11 +15,13 @@ Please use the issues tab to report issues/request features.
 
 - Nextflow (can be easily installed with mamba/conda, and executed from there.)
 - Apptainer (original opensource fork of Singularity)
+  Apptianer can be installed with the instructions on their [github](https://github.com/apptainer/apptainer/blob/release-1.4/INSTALL.md)
 apptainer functionality can be quickly assessed with the following command:
 
 ``` bash 
-apptainer run library://sylabsed/examples/lolcow
+apptainer pull docker://ghcr.io/apptainer/lolcow && apptainer exec lolcow_latest.sif cowsay moo
 ```
+
 #### Installation
 
 Clone this repository onto the machine where the pipeline is to be run. 
