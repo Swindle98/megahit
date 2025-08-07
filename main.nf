@@ -25,7 +25,7 @@ process MEGAHIT {
     """
     megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}_contigs -m 0.4 --presets meta-large 
 
-    megahit_toolkit contigs2fastg -i ${sample_id}_contigs/final.contigs.fa -o ${sample_id}.contigs.fastg
+    megahit_toolkit contig2fastg -i ${sample_id}_contigs/final.contigs.fa -o ${sample_id}.contigs.fastg
     """
 }
 
