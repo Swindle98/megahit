@@ -5,7 +5,7 @@ nextflow.enable.dsl = 2
 //raw_reads = params.input
 workflow {
 
-    samples = Channel.fromFilePairs("test_data/*unmapped_{1,2}_top1000.fastq.gz")
+    samples = Channel.fromFilePairs("test_data/*unmapped_{1,2}_top10000.fastq.gz")
     samples.view()
     contigs = MEGAHIT(samples)
     MULTIQC(contigs.contigs)

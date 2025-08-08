@@ -7,6 +7,17 @@ By default the workflow runs megahit with the `meta-large` configuration.
 
 Please use the issues tab to report issues/request features. 
 
+### Overview
+
+```mermaid
+flowchart TB
+    subgraph " "
+    v1([MEGAHIT])
+    v3([MULTIQC])
+    v1 --> v3
+    end
+```
+
 ## How to run. 
 
 ### Apptainer
