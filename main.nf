@@ -5,7 +5,7 @@ nextflow.enable.dsl = 2
 //raw_reads = params.input
 workflow {
 
-    samples = Channel.fromFilePairs("test_data/*unmapped_{1,2}.fastq.gz")
+    samples = Channel.fromFilePairs("test_data/*unmapped_{1,2}_top1000.fastq.gz")
     samples.view()
     contigs = MEGAHIT(samples)
     MULTIQC(contigs.contigs)
@@ -13,6 +13,10 @@ workflow {
 
 process MEGAHIT {
     tag "running Megahit on ${sample_id}"
+
+    publishDir "results/${sample_id}/contigs", mode: 'copy', pattern: "*.fa"
+    publishDir "results/${sample_id}/fastg", mode: 'copy', pattern: "*.fastg"
+
     input:
     tuple val(sample_id), path(reads)
 
@@ -32,15 +36,17 @@ process MEGAHIT {
 process MULTIQC{
     tag "running MultiQC"
     
+    publishDir "results/multiqc", mode: 'copy', pattern: "NextMegaHit_report.HTML"
+
     input:
-    path contigs
+    path 'contigs_file'
 
     output:
     path "NextMegaHit_report.HTML", emit: report
 
     script:
     """
-    multiqc ${projectDir} --filename NextMegaHit_report.HTML -f
+    multiqc . --filename NextMegaHit_report.HTML -f
     """
 }
 
